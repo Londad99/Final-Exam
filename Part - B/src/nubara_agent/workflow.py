@@ -21,6 +21,7 @@ from pydantic import PrivateAttr
 from .contracts import Assessment, Intent
 from .engine import Engine, ReadContext
 from .privacy import sanitize_message
+from .resilience import ResilientGemini
 
 ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(ROOT / ".env")
@@ -76,8 +77,10 @@ class AgentService:
         async def count_call(callback_context, llm_request):
             trace["llm_calls"] += 1
 
+        trace["provider_attempts"] = []
+        resilient_model = ResilientGemini(self.model, trace["provider_attempts"]) if isinstance(self.model, str) else self.model
         reader = LlmAgent(
-            name="read_agent", model=self.model, instruction=INSTRUCTION,
+            name="read_agent", model=resilient_model, instruction=INSTRUCTION,
             tools=[context.get_trip_context, context.get_operational_events, context.get_policy_rules, context.get_eligible_options],
             output_key="intent", before_model_callback=count_call,
             generate_content_config=types.GenerateContentConfig(temperature=0, max_output_tokens=2048),
@@ -92,7 +95,7 @@ class AgentService:
         try:
             if isinstance(self.model, str) and not os.getenv("GOOGLE_API_KEY"):
                 raise RuntimeError("Missing model configuration")
-            async with asyncio.timeout(90):
+            async with asyncio.timeout(180):
                 async for event in runner.run_async(
                     user_id=trace_id, session_id=trace_id,
                     new_message=types.Content(role="user", parts=[types.Part(text=sanitized)]),

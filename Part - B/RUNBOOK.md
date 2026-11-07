@@ -68,7 +68,7 @@ La única credencial externa es `GOOGLE_API_KEY`, configurada en el backend. Est
 
 ## 5. Probar todo desde el frontend
 
-Abre http://127.0.0.1:8000/. Cada selección carga un mensaje que puedes editar. Pulsa **Consultar mi viaje** y espera hasta 90 segundos. Puedes desplegar **Ver respuesta técnica (sin token)** para inspeccionar los campos de la API.
+Abre http://127.0.0.1:8000/. Cada selección carga un mensaje que puedes editar. Pulsa **Consultar mi viaje** y espera hasta 180 segundos. Puedes desplegar **Ver respuesta técnica (sin token)** para inspeccionar los campos de la API.
 
 | Prueba | Cómo acceder y ejecutar | Resultado esperado cuando Gemini completa |
 |---|---|---|
@@ -164,3 +164,22 @@ Rutas relativas a `Part - B`:
 | `TECHNICAL_NOTES.md` | Arquitectura, límites e historial de evidencias |
 
 El frontend no guarda tokens en almacenamiento del navegador. Los mantiene solo durante la consulta actual. No hay despliegue público ni integración con operadores reales.
+
+## 10. Reintentos y modelos reales
+
+Las consultas web y `scripts/demo.py` usan Gemini real. No cambian a un modelo simulado si Gemini falla. Solo el evaluador sin `--live` y las pruebas usan un doble.
+
+En `.env` puedes definir:
+
+```dotenv
+GEMINI_MODEL=gemini-3.8-flash
+GEMINI_FALLBACK_MODELS=gemini-3.1-flash-lite
+```
+
+La lista de respaldo admite hasta dos modelos separados por comas, disponibles para tu proyecto. Vacía la variable para desactivar el cambio. Reinicia Uvicorn después de editar `.env`.
+
+Cada llamada del agente hace hasta 3 intentos por modelo. Ante 429, 500, 502, 503, 504 o tiempo agotado, espera aproximadamente 2 y 4 segundos más una variación aleatoria antes de reintentar. Después pasa al siguiente modelo; un 404 pasa directamente al siguiente. Un 400/401/403 no cambia de modelo: corrige la solicitud, clave o permisos. Cada intento tiene un máximo de 20 segundos y toda la evaluación tiene un límite global de 180 segundos. Un modelo que funciona se conserva para las siguientes llamadas de esa consulta.
+
+Esto reduce fallos transitorios, pero no garantiza evitar 503 ni aumenta la cuota del proyecto. Un 429 puede representar un límite temporal o cuota agotada; si todos los modelos comparten la cuota o están indisponibles, se devuelve `UNAVAILABLE` y revisión humana. No se cambian claves, cuentas ni facturación. Los reintentos solo envían solicitudes al modelo: no repiten el workflow, confirmaciones ni escrituras de reservas.
+
+Para probar realmente: ejecuta `scripts/demo.py` o `scripts/evaluate.py --live` con los comandos anteriores. Las trazas guardan `provider_attempts` con modelo, intento, espera y código de error, sin claves ni mensajes. Las APIs de aerolínea siguen simuladas: para conectarlas hacen falta endpoints y credenciales reales.

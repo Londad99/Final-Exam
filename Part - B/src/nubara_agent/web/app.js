@@ -12,7 +12,7 @@ function reset() { const c = cases[$('scenario').value]; $('message').value=c.me
 function lock(value) { busy=value; for (const id of ['scenario','message','assess']) $(id).disabled=value; }
 async function request(path, owner, body) {
   let response;
-  try { response=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json','X-Demo-User':owner},body:JSON.stringify(body),signal:AbortSignal.timeout(105000)}); }
+  try { response=await fetch(path,{method:'POST',headers:{'Content-Type':'application/json','X-Demo-User':owner},body:JSON.stringify(body),signal:AbortSignal.timeout(195000)}); }
   catch { throw new Error('No se recibió respuesta. Comprueba el servidor. Si estabas confirmando, el resultado es desconocido: no asumas un cambio ni repitas la solicitud automáticamente.'); }
   if(!response.ok) throw new Error(({403:'Identidad sin acceso a esta reserva.',409:'La oferta venció o dejó de ser válida. Consulta otra vez y revisa la nueva alternativa.',422:'Revisa el mensaje y los datos enviados.'})[response.status] || `Error del servidor (${response.status}). Intenta más tarde.`);
   return response.json();
@@ -35,6 +35,6 @@ function render(data,c) {
   }
 }
 $('scenario').addEventListener('change',reset);
-$('assessment-form').addEventListener('submit',async event=>{event.preventDefault();if(busy)return;const message=$('message').value.trim();if(!message){$('notice').textContent='Escribe tu consulta.';return;}const c=cases[$('scenario').value];lock(true);$('result').hidden=true;$('options').replaceChildren();$('confirmation').textContent='';$('notice').className='';$('notice').textContent='Consultando información y políticas… Puede tardar hasta 90 segundos.';try{const data=await request(`/v1/disruptions/${c.booking}/assess`,c.owner,{message});render(data,c);$('notice').textContent=data.agent_status==='COMPLETED'?'Consulta completada.':'El agente no completó la consulta. Esto no cuenta como una prueba exitosa de Gemini.';}catch(error){$('notice').textContent=error.message;$('notice').className='error';}finally{lock(false);}});
+$('assessment-form').addEventListener('submit',async event=>{event.preventDefault();if(busy)return;const message=$('message').value.trim();if(!message){$('notice').textContent='Escribe tu consulta.';return;}const c=cases[$('scenario').value];lock(true);$('result').hidden=true;$('options').replaceChildren();$('confirmation').textContent='';$('notice').className='';$('notice').textContent='Consultando información y políticas… Puede tardar hasta 180 segundos.';try{const data=await request(`/v1/disruptions/${c.booking}/assess`,c.owner,{message});render(data,c);$('notice').textContent=data.agent_status==='COMPLETED'?'Consulta completada.':'El agente no completó la consulta. Esto no cuenta como una prueba exitosa de Gemini.';}catch(error){$('notice').textContent=error.message;$('notice').className='error';}finally{lock(false);}});
 reset();
 fetch('/health').then(r=>{if(!r.ok)throw new Error();return r.json();}).then(()=>{$('health').textContent='API conectada · sistemas simulados';}).catch(()=>{$('health').textContent='API no disponible';});
