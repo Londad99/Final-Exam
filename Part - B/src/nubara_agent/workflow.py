@@ -56,7 +56,7 @@ class DecisionGate(BaseAgent):
 class AgentService:
     def __init__(self, engine: Engine, model=None, evidence_dir: Path | None = None):
         self.engine = engine
-        self.model = model if model is not None else os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+        self.model = model if model is not None else os.getenv("GEMINI_MODEL", "gemini-3.8-flash")
         self.evidence_dir = evidence_dir
 
     @staticmethod

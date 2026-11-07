@@ -1,0 +1,16 @@
+{
+  "trace_id": "79647072e82c4e2f81f1434060fca563",
+  "model_kind": "real",
+  "events": [],
+  "tool_trajectory": [],
+  "llm_calls": 1,
+  "tokens": 0,
+  "error_type": "ServerError",
+  "provider_status_code": 503,
+  "write_trajectory": [],
+  "elapsed_ms": 1592,
+  "status": "UNAVAILABLE",
+  "policy_refs": [],
+  "evidence_refs": [],
+  "entitlements": []
+}

@@ -1,0 +1,23 @@
+{
+  "what_happened": [
+    "An automated assessment could not be completed."
+  ],
+  "entitlements": [],
+  "options": [],
+  "next_step": "RETRY_OR_CONTACT_SUPPORT",
+  "policy_refs": [],
+  "human_required": true,
+  "reply": "No pude completar la evaluación automática. No se ha cambiado tu reserva. Abrí un caso para revisión humana.",
+  "connection_status": "UNKNOWN",
+  "evidence_refs": [],
+  "human_case": {
+    "status": "OPEN",
+    "case_id": "HC-4471",
+    "queue": "DISRUPTION_L2",
+    "sla_minutes": 45
+  },
+  "notification": null,
+  "confirmation_token": null,
+  "agent_status": "UNAVAILABLE",
+  "trace_id": "79647072e82c4e2f81f1434060fca563"
+}

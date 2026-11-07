@@ -48,6 +48,9 @@ def reconcile(
     dropped: list[OperationalEvent] = []
 
     for e in events:
+        if e.source not in priority or e.recorded_at > now:
+            out.discarded.append({"event_id": e.event_id, "reason": "untrusted_source_or_future"})
+            continue
         if e.source in degraded:
             out.discarded.append({"event_id": e.event_id, "source": e.source, "reason": "degraded_source"})
             dropped.append(e)
