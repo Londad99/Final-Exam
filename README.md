@@ -1,6 +1,6 @@
 # Nubara Disruption Companion — Engineering README
 
-**Purpose and scope.** Reduce uncertainty and avoidable contacts through verified disruption explanations and controlled next steps. The backend in [Part - B](Part%20-%20B/RUNBOOK.md) implements the student-approved Google ADK design over airline mocks; no frontend or deployment. The earlier submission supplies reusable contracts and deterministic logic. **Validation: 17 local tests and 4/4 scripted ADK evaluations pass; real Gemini evaluations currently fail with provider HTTP 503. A successful real-model run is still required.**
+**Purpose and scope.** Reduce uncertainty and avoidable contacts through verified disruption explanations and controlled next steps. The backend in [Part - B](Part%20-%20B/RUNBOOK.md) implements the student-approved Google ADK design over airline mocks; with a local Spanish frontend served alongside the API; no deployment. See the RUNBOOK for startup, demo identities and browser tests. The earlier submission supplies reusable contracts and deterministic logic. **Validation: 17 local tests and 4/4 scripted ADK evaluations pass; real Gemini evaluations currently fail with provider HTTP 503. A successful real-model run is still required.**
 
 ## 1. Autonomy boundary
 

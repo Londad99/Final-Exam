@@ -15,6 +15,9 @@ test = ["pytest==9.2.0", "pytest-asyncio==1.4.1.post1", "httpx==0.28.1"]
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+nubara_agent = ["web/*.html", "web/*.css", "web/*.js"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 asyncio_mode = "auto"

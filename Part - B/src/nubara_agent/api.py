@@ -1,5 +1,7 @@
 from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel, Field
+from pathlib import Path
+from fastapi.staticfiles import StaticFiles
 
 from .contracts import Assessment
 from .runtime import build_service
@@ -38,3 +40,7 @@ def confirm(body: ConfirmationRequest, x_demo_user: str = Header()):
         return service.engine.confirm(x_demo_user, body.confirmation_token, body.option_id, body.confirmed)
     except ValueError:
         raise HTTPException(409, "Confirmation rejected: missing, expired, unauthorized or changed option") from None
+
+
+# Same-origin UI: a single local process serves both the frontend and API.
+app.mount("/", StaticFiles(directory=Path(__file__).parent / "web", html=True), name="frontend")
