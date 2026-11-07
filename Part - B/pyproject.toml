@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nubara-adk-agent"
+version = "0.1.0"
+description = "Controlled Google ADK disruption companion"
+requires-python = ">=3.11"
+dependencies = ["google-adk==2.14.0", "fastapi==0.162.0", "uvicorn==0.54.0", "python-dotenv==1.2.4"]
+
+[project.optional-dependencies]
+test = ["pytest==9.2.0", "pytest-asyncio==1.4.1.post1", "httpx==0.28.1"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
