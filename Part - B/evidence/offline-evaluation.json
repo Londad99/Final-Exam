@@ -15,7 +15,7 @@
         "connection_status": true
       },
       "trace": {
-        "trace_id": "212bbb9ef7c945cd82b5e00ee50ce0f6",
+        "trace_id": "1287a40ef51942f4a7e094a865ad36bc",
         "model_kind": "scripted_test_double",
         "events": [
           {
@@ -61,7 +61,7 @@
           "create_human_case",
           "notify_passenger"
         ],
-        "elapsed_ms": 663,
+        "elapsed_ms": 601,
         "status": "COMPLETED",
         "policy_refs": [
           "POL-DELAY-2026-03"
@@ -150,7 +150,7 @@
           "channel": "PUSH"
         },
         "agent_status": "COMPLETED",
-        "trace_id": "212bbb9ef7c945cd82b5e00ee50ce0f6"
+        "trace_id": "1287a40ef51942f4a7e094a865ad36bc"
       },
       "write_result": null
     },
@@ -168,7 +168,7 @@
         "connection_status": true
       },
       "trace": {
-        "trace_id": "7b9f20fa5ed546848ce04ef3a98a8d07",
+        "trace_id": "cb57338d5ea44d97b2ded1e776e05287",
         "model_kind": "scripted_test_double",
         "events": [
           {
@@ -214,7 +214,7 @@
           "create_human_case",
           "notify_passenger"
         ],
-        "elapsed_ms": 26,
+        "elapsed_ms": 27,
         "status": "COMPLETED",
         "policy_refs": [
           "POL-DELAY-2026-03"
@@ -292,7 +292,7 @@
           "channel": "PUSH"
         },
         "agent_status": "COMPLETED",
-        "trace_id": "7b9f20fa5ed546848ce04ef3a98a8d07"
+        "trace_id": "cb57338d5ea44d97b2ded1e776e05287"
       },
       "write_result": null
     },
@@ -310,7 +310,7 @@
         "connection_status": true
       },
       "trace": {
-        "trace_id": "9b3f9e40b8f34029a61ba1fccef26213",
+        "trace_id": "24c8c3646c2b461298cbbfbe60b844b9",
         "model_kind": "scripted_test_double",
         "events": [
           {
@@ -356,7 +356,7 @@
           "create_human_case",
           "notify_passenger"
         ],
-        "elapsed_ms": 22,
+        "elapsed_ms": 24,
         "status": "COMPLETED",
         "policy_refs": [
           "POL-DELAY-2026-03"
@@ -445,7 +445,7 @@
           "channel": "PUSH"
         },
         "agent_status": "COMPLETED",
-        "trace_id": "9b3f9e40b8f34029a61ba1fccef26213"
+        "trace_id": "24c8c3646c2b461298cbbfbe60b844b9"
       },
       "write_result": null
     },
@@ -461,7 +461,7 @@
         "no_duplicate": true
       },
       "trace": {
-        "trace_id": "d1d6feea69134739ad7f4431bd215d4d",
+        "trace_id": "0b86a8065fb6495fa54abc8961cb84db",
         "model_kind": "scripted_test_double",
         "events": [
           {
@@ -506,7 +506,7 @@
         "write_trajectory": [
           "notify_passenger"
         ],
-        "elapsed_ms": 19,
+        "elapsed_ms": 21,
         "status": "COMPLETED",
         "policy_refs": [
           "POL-DELAY-2026-03"
@@ -583,7 +583,7 @@
           "channel": "PUSH"
         },
         "agent_status": "COMPLETED",
-        "trace_id": "d1d6feea69134739ad7f4431bd215d4d"
+        "trace_id": "0b86a8065fb6495fa54abc8961cb84db"
       },
       "write_result": {
         "status": "INDETERMINATE",

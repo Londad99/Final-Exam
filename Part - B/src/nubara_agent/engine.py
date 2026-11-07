@@ -184,7 +184,8 @@ class Engine:
         if not original:
             raise ValueError("Option was not presented")
         # The key survives changed events, new offers and process restarts.
-        key = digest("rebooking", offer["booking"], original)
+        key = digest("rebooking", offer["booking"],
+                     {field: original[field] for field in ("flight_number", "origin", "destination", "date", "departure")})
         prior = self.store.lookup(key)
         if prior:
             return self._write_result(offer["booking"], prior)

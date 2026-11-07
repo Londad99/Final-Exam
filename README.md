@@ -24,12 +24,13 @@
 **Workflow Agent in Google ADK**, implemented with `SequentialAgent`: one `LlmAgent` selects reads, then a deterministic `DecisionGate` evaluates and acts. Compared with the earlier fixed pipeline, the LLM interprets natural-language requests and chooses function calls. Multiple reasoning agents and unrestricted action tools were rejected as unnecessary complexity.
 
 ```text
-API -> authorize/minimize -> SequentialAgent
-                              read_agent <-> four read wrappers
-                                  -> decision_gate -> validated response/notification
-                                                   -> human case -> STOP for operator
-                                                   -> offer token -> STOP for passenger
-confirmation endpoint -> token/owner/TTL + fresh assessment -> protected rebooking
+[API] -> [Authorize/minimize] -> [SequentialAgent workflow]
+                                  [read_agent] <-> [Four read wrappers]
+                                      |
+                                  [decision_gate] -> [Validated reply/notification]
+                                      |-> [Human case / STOP for operator]
+                                      |-> [Offer token / STOP for passenger]
+[Confirmation API] -> [Token/owner/TTL + fresh assessment] -> [Protected rebooking]
 ```
 
 Sequential orchestration connects reader to gate; no model-directed delegation. `read_agent` reaches only trip, events, policy and options wrappers; identifiers remain backend-bound. `decision_gate` alone reaches case/notification writes. The confirmation service alone reaches rebooking. Operator decisions remain outside this slice; no endpoint can impersonate approval.
