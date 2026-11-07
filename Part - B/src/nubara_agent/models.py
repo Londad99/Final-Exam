@@ -6,7 +6,7 @@ treated as unavailable instead of silently producing a wrong decision.
 from __future__ import annotations
 
 import datetime as dt
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -39,10 +39,10 @@ class Passenger(_Base):
 
 
 class Segment(_Base):
-    segment_id: str
-    flight_number: str
-    origin: str
-    destination: str
+    segment_id: str = Field(pattern=r"^[A-Z][A-Z0-9-]{0,15}$")
+    flight_number: str = Field(pattern=r"^[A-Z0-9]{2,3}\d{1,5}$")
+    origin: str = Field(pattern=r"^[A-Z]{3}$")
+    destination: str = Field(pattern=r"^[A-Z]{3}$")
     date: dt.date
     scheduled_departure: dt.time
     scheduled_arrival: dt.time
@@ -56,7 +56,7 @@ class FareConditions(_Base):
 
 class TripMeta(_Base):
     retrieved_at: dt.datetime
-    completeness: str = "COMPLETE"
+    completeness: Literal["COMPLETE", "PARTIAL"] = "COMPLETE"
     missing_fields: list[str] = Field(default_factory=list)
 
 
@@ -75,9 +75,9 @@ class OperationalEvent(_Base):
     type: str
     source: str
     recorded_at: dt.datetime
-    delay_minutes: int | None = None
+    delay_minutes: int | None = Field(default=None, ge=0)
     new_departure: dt.time | None = None
-    gate: str | None = None
+    gate: str | None = Field(default=None, pattern=r"^[A-Z0-9-]{1,8}$")
     status: str | None = None
 
 
@@ -94,18 +94,18 @@ class EventsDocument(_Base):
 
 # ---- get_eligible_options ---------------------------------------------------
 class RebookingOption(_Base):
-    option_id: str
+    option_id: str = Field(pattern=r"^[A-Z0-9-]{1,32}$")
     type: str
     policy_ref: str
     confidence: str
-    flight_number: str | None = None
-    origin: str | None = None
-    destination: str | None = None
+    flight_number: str | None = Field(default=None, pattern=r"^[A-Z0-9]{2,3}\d{1,5}$")
+    origin: str | None = Field(default=None, pattern=r"^[A-Z]{3}$")
+    destination: str | None = Field(default=None, pattern=r"^[A-Z]{3}$")
     date: dt.date | None = None
     departure: dt.time | None = None
-    fare_difference: int = 0
+    fare_difference: int | None = Field(default=None, ge=0)
     currency: str | None = None
-    seats_available: int | None = None
+    seats_available: int | None = Field(default=None, ge=0)
 
 
 class OptionsMeta(_Base):

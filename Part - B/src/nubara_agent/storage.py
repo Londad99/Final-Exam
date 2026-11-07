@@ -2,7 +2,7 @@
 import json
 import sqlite3
 import uuid
-from contextlib import contextmanager
+from contextlib import closing, contextmanager
 from pathlib import Path
 
 
@@ -12,11 +12,18 @@ class Store:
         with self.connection() as db:
             db.execute("CREATE TABLE IF NOT EXISTS offers (token TEXT PRIMARY KEY, owner TEXT, payload TEXT)")
             db.execute("CREATE TABLE IF NOT EXISTS writes (key TEXT PRIMARY KEY, status TEXT, payload TEXT)")
+            db.execute("CREATE TABLE IF NOT EXISTS settings (key TEXT PRIMARY KEY, value TEXT)")
+
+    def replay_epoch(self, utc_now: str) -> str:
+        with self.connection() as db:
+            db.execute("INSERT OR IGNORE INTO settings VALUES ('replay_epoch', ?)", (utc_now,))
+            return db.execute("SELECT value FROM settings WHERE key='replay_epoch'").fetchone()[0]
 
     @contextmanager
     def connection(self):
-        with sqlite3.connect(self.path, timeout=15) as db:
-            yield db
+        with closing(sqlite3.connect(self.path, timeout=15)) as db:
+            with db:
+                yield db
 
     def offer(self, owner: str, payload: dict) -> str:
         token = uuid.uuid4().hex

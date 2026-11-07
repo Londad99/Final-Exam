@@ -6,7 +6,7 @@ Response = tuple[int, dict[str, Any]]
 
 
 class SystemsPort(Protocol):
-    """The six tools of the airline platform. Reads return dicts (or raise
+    """The seven tools of the airline platform. Reads return dicts (or raise
     SourceUnavailable / BookingNotFound); writes return (status_code, body)."""
 
     def get_trip_context(self, booking_id: str) -> dict[str, Any]: ...

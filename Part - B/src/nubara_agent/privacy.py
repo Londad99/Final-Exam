@@ -32,6 +32,6 @@ def trip_view(trip: TripContext) -> dict:
         "changeable": trip.fare_conditions.changeable,
         "refundable": trip.fare_conditions.refundable,
         "completeness": trip.meta.completeness,
-        "missing_fields": trip.meta.missing_fields,
+        "missing_fields": [field for field in trip.meta.missing_fields if field in {"fare_conditions.change_penalty_amount"}],
         "retrieved_at": trip.meta.retrieved_at.isoformat(),
     }

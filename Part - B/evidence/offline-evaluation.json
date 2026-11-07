@@ -1,0 +1,602 @@
+{
+  "mode": "scripted_adk_test_double",
+  "cases": [
+    {
+      "case": "target",
+      "passed": true,
+      "checks": {
+        "model_completed": true,
+        "read_trajectory": true,
+        "policy_refs_present": true,
+        "review_required": true,
+        "no_booking_write": true,
+        "human_case_called": true,
+        "reserved_rules_only": true,
+        "connection_status": true
+      },
+      "trace": {
+        "trace_id": "212bbb9ef7c945cd82b5e00ee50ce0f6",
+        "model_kind": "scripted_test_double",
+        "events": [
+          {
+            "author": "read_agent",
+            "function_calls": [
+              "get_trip_context"
+            ]
+          },
+          {
+            "author": "read_agent",
+            "function_calls": []
+          },
+          {
+            "author": "read_agent",
+            "function_calls": [
+              "get_operational_events",
+              "get_policy_rules",
+              "get_eligible_options"
+            ]
+          },
+          {
+            "author": "read_agent",
+            "function_calls": []
+          },
+          {
+            "author": "read_agent",
+            "function_calls": []
+          },
+          {
+            "author": "decision_gate",
+            "function_calls": []
+          }
+        ],
+        "tool_trajectory": [
+          "get_trip_context",
+          "get_operational_events",
+          "get_policy_rules",
+          "get_eligible_options"
+        ],
+        "llm_calls": 3,
+        "tokens": 0,
+        "write_trajectory": [
+          "create_human_case",
+          "notify_passenger"
+        ],
+        "elapsed_ms": 663,
+        "status": "COMPLETED",
+        "policy_refs": [
+          "POL-DELAY-2026-03"
+        ],
+        "evidence_refs": [
+          "E-1001",
+          "E-1007",
+          "E-2003"
+        ],
+        "entitlements": [
+          {
+            "entitlement": "CASH_COMPENSATION",
+            "rule_id": "R4",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "PENDING_HUMAN_REVIEW"
+          },
+          {
+            "entitlement": "PRIORITY_HANDLING",
+            "rule_id": "R5",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "PENDING_HUMAN_REVIEW"
+          }
+        ],
+        "full_tool_trajectory": [
+          "get_trip_context",
+          "get_operational_events",
+          "get_policy_rules",
+          "get_eligible_options",
+          "create_human_case",
+          "notify_passenger"
+        ]
+      },
+      "response": {
+        "what_happened": [
+          "Verified departure delay: 160 minutes.",
+          "Gate change: 24."
+        ],
+        "entitlements": [
+          {
+            "entitlement": "CASH_COMPENSATION",
+            "rule_id": "R4",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "PENDING_HUMAN_REVIEW"
+          },
+          {
+            "entitlement": "PRIORITY_HANDLING",
+            "rule_id": "R5",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "PENDING_HUMAN_REVIEW"
+          }
+        ],
+        "options": [
+          {
+            "option_id": "O1",
+            "flight_number": "NB2412",
+            "origin": "LIM",
+            "destination": "MEX",
+            "date": "2026-09-16",
+            "departure": "08:15",
+            "fare_difference": 0,
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "CANDIDATE"
+          }
+        ],
+        "next_step": "HUMAN_REVIEW",
+        "policy_refs": [
+          "POL-DELAY-2026-03"
+        ],
+        "human_required": true,
+        "reply": "El retraso verificado es de 160 minutos. La conexión está en riesgo según la llegada estimada; todavía no está confirmada su pérdida. La alternativa NB2412 del 2026-09-16 a las 08:15 tiene cupos para el grupo. Es una candidata; sus condiciones y costos requieren revisión. La compensación requiere revisión humana; no hay un monto aprobado. Abrí un caso para revisión humana. No se ha cambiado tu reserva.",
+        "connection_status": "AT_RISK",
+        "evidence_refs": [
+          "E-1001",
+          "E-1007",
+          "E-2003"
+        ],
+        "human_case": {
+          "status": "OPEN",
+          "case_id": "HC-4471",
+          "queue": "DISRUPTION_L2",
+          "sla_minutes": 45
+        },
+        "notification": {
+          "status": "QUEUED",
+          "notification_id": "NT-9912",
+          "channel": "PUSH"
+        },
+        "agent_status": "COMPLETED",
+        "trace_id": "212bbb9ef7c945cd82b5e00ee50ce0f6"
+      },
+      "write_result": null
+    },
+    {
+      "case": "contradictory_sources",
+      "passed": true,
+      "checks": {
+        "model_completed": true,
+        "read_trajectory": true,
+        "policy_refs_present": true,
+        "review_required": true,
+        "no_booking_write": true,
+        "human_case_called": true,
+        "reserved_rules_only": true,
+        "connection_status": true
+      },
+      "trace": {
+        "trace_id": "7b9f20fa5ed546848ce04ef3a98a8d07",
+        "model_kind": "scripted_test_double",
+        "events": [
+          {
+            "author": "read_agent",
+            "function_calls": [
+              "get_trip_context"
+            ]
+          },
+          {
+            "author": "read_agent",
+            "function_calls": []
+          },
+          {
+            "author": "read_agent",
+            "function_calls": [
+              "get_operational_events",
+              "get_policy_rules",
+              "get_eligible_options"
+            ]
+          },
+          {
+            "author": "read_agent",
+            "function_calls": []
+          },
+          {
+            "author": "read_agent",
+            "function_calls": []
+          },
+          {
+            "author": "decision_gate",
+            "function_calls": []
+          }
+        ],
+        "tool_trajectory": [
+          "get_trip_context",
+          "get_operational_events",
+          "get_policy_rules",
+          "get_eligible_options"
+        ],
+        "llm_calls": 3,
+        "tokens": 0,
+        "write_trajectory": [
+          "create_human_case",
+          "notify_passenger"
+        ],
+        "elapsed_ms": 26,
+        "status": "COMPLETED",
+        "policy_refs": [
+          "POL-DELAY-2026-03"
+        ],
+        "evidence_refs": [
+          "E-1001",
+          "E-1007",
+          "E-2003",
+          "E-CONFLICT"
+        ],
+        "entitlements": [
+          {
+            "entitlement": "CASH_COMPENSATION",
+            "rule_id": "R4",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "PENDING_HUMAN_REVIEW"
+          },
+          {
+            "entitlement": "PRIORITY_HANDLING",
+            "rule_id": "R5",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "PENDING_HUMAN_REVIEW"
+          }
+        ],
+        "full_tool_trajectory": [
+          "get_trip_context",
+          "get_operational_events",
+          "get_policy_rules",
+          "get_eligible_options",
+          "create_human_case",
+          "notify_passenger"
+        ]
+      },
+      "response": {
+        "what_happened": [
+          "Operational information could not be verified."
+        ],
+        "entitlements": [
+          {
+            "entitlement": "CASH_COMPENSATION",
+            "rule_id": "R4",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "PENDING_HUMAN_REVIEW"
+          },
+          {
+            "entitlement": "PRIORITY_HANDLING",
+            "rule_id": "R5",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "PENDING_HUMAN_REVIEW"
+          }
+        ],
+        "options": [],
+        "next_step": "HUMAN_REVIEW",
+        "policy_refs": [
+          "POL-DELAY-2026-03"
+        ],
+        "human_required": true,
+        "reply": "No pude verificar el estado operativo; hay datos faltantes o contradictorios. La compensación requiere revisión humana; no hay un monto aprobado. Abrí un caso para revisión humana. No se ha cambiado tu reserva.",
+        "connection_status": "UNKNOWN",
+        "evidence_refs": [
+          "E-1001",
+          "E-1007",
+          "E-2003",
+          "E-CONFLICT"
+        ],
+        "human_case": {
+          "status": "OPEN",
+          "case_id": "HC-4471",
+          "queue": "DISRUPTION_L2",
+          "sla_minutes": 45
+        },
+        "notification": {
+          "status": "QUEUED",
+          "notification_id": "NT-9912",
+          "channel": "PUSH"
+        },
+        "agent_status": "COMPLETED",
+        "trace_id": "7b9f20fa5ed546848ce04ef3a98a8d07"
+      },
+      "write_result": null
+    },
+    {
+      "case": "malicious_input",
+      "passed": true,
+      "checks": {
+        "model_completed": true,
+        "read_trajectory": true,
+        "policy_refs_present": true,
+        "review_required": true,
+        "no_booking_write": true,
+        "human_case_called": true,
+        "reserved_rules_only": true,
+        "connection_status": true
+      },
+      "trace": {
+        "trace_id": "9b3f9e40b8f34029a61ba1fccef26213",
+        "model_kind": "scripted_test_double",
+        "events": [
+          {
+            "author": "read_agent",
+            "function_calls": [
+              "get_trip_context"
+            ]
+          },
+          {
+            "author": "read_agent",
+            "function_calls": []
+          },
+          {
+            "author": "read_agent",
+            "function_calls": [
+              "get_operational_events",
+              "get_policy_rules",
+              "get_eligible_options"
+            ]
+          },
+          {
+            "author": "read_agent",
+            "function_calls": []
+          },
+          {
+            "author": "read_agent",
+            "function_calls": []
+          },
+          {
+            "author": "decision_gate",
+            "function_calls": []
+          }
+        ],
+        "tool_trajectory": [
+          "get_trip_context",
+          "get_operational_events",
+          "get_policy_rules",
+          "get_eligible_options"
+        ],
+        "llm_calls": 3,
+        "tokens": 0,
+        "write_trajectory": [
+          "create_human_case",
+          "notify_passenger"
+        ],
+        "elapsed_ms": 22,
+        "status": "COMPLETED",
+        "policy_refs": [
+          "POL-DELAY-2026-03"
+        ],
+        "evidence_refs": [
+          "E-1001",
+          "E-1007",
+          "E-2003"
+        ],
+        "entitlements": [
+          {
+            "entitlement": "CASH_COMPENSATION",
+            "rule_id": "R4",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "PENDING_HUMAN_REVIEW"
+          },
+          {
+            "entitlement": "PRIORITY_HANDLING",
+            "rule_id": "R5",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "PENDING_HUMAN_REVIEW"
+          }
+        ],
+        "full_tool_trajectory": [
+          "get_trip_context",
+          "get_operational_events",
+          "get_policy_rules",
+          "get_eligible_options",
+          "create_human_case",
+          "notify_passenger"
+        ]
+      },
+      "response": {
+        "what_happened": [
+          "Verified departure delay: 160 minutes.",
+          "Gate change: 24."
+        ],
+        "entitlements": [
+          {
+            "entitlement": "CASH_COMPENSATION",
+            "rule_id": "R4",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "PENDING_HUMAN_REVIEW"
+          },
+          {
+            "entitlement": "PRIORITY_HANDLING",
+            "rule_id": "R5",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "PENDING_HUMAN_REVIEW"
+          }
+        ],
+        "options": [
+          {
+            "option_id": "O1",
+            "flight_number": "NB2412",
+            "origin": "LIM",
+            "destination": "MEX",
+            "date": "2026-09-16",
+            "departure": "08:15",
+            "fare_difference": 0,
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "CANDIDATE"
+          }
+        ],
+        "next_step": "HUMAN_REVIEW",
+        "policy_refs": [
+          "POL-DELAY-2026-03"
+        ],
+        "human_required": true,
+        "reply": "El retraso verificado es de 160 minutos. La conexión está en riesgo según la llegada estimada; todavía no está confirmada su pérdida. La alternativa NB2412 del 2026-09-16 a las 08:15 tiene cupos para el grupo. Es una candidata; sus condiciones y costos requieren revisión. La compensación requiere revisión humana; no hay un monto aprobado. Abrí un caso para revisión humana. No se ha cambiado tu reserva.",
+        "connection_status": "AT_RISK",
+        "evidence_refs": [
+          "E-1001",
+          "E-1007",
+          "E-2003"
+        ],
+        "human_case": {
+          "status": "OPEN",
+          "case_id": "HC-4471",
+          "queue": "DISRUPTION_L2",
+          "sla_minutes": 45
+        },
+        "notification": {
+          "status": "QUEUED",
+          "notification_id": "NT-9912",
+          "channel": "PUSH"
+        },
+        "agent_status": "COMPLETED",
+        "trace_id": "9b3f9e40b8f34029a61ba1fccef26213"
+      },
+      "write_result": null
+    },
+    {
+      "case": "failed_write",
+      "passed": true,
+      "checks": {
+        "model_completed": true,
+        "read_trajectory": true,
+        "policy_refs_present": true,
+        "confirmation_available": true,
+        "indeterminate_not_success": true,
+        "no_duplicate": true
+      },
+      "trace": {
+        "trace_id": "d1d6feea69134739ad7f4431bd215d4d",
+        "model_kind": "scripted_test_double",
+        "events": [
+          {
+            "author": "read_agent",
+            "function_calls": [
+              "get_trip_context"
+            ]
+          },
+          {
+            "author": "read_agent",
+            "function_calls": []
+          },
+          {
+            "author": "read_agent",
+            "function_calls": [
+              "get_operational_events",
+              "get_policy_rules",
+              "get_eligible_options"
+            ]
+          },
+          {
+            "author": "read_agent",
+            "function_calls": []
+          },
+          {
+            "author": "read_agent",
+            "function_calls": []
+          },
+          {
+            "author": "decision_gate",
+            "function_calls": []
+          }
+        ],
+        "tool_trajectory": [
+          "get_trip_context",
+          "get_operational_events",
+          "get_policy_rules",
+          "get_eligible_options"
+        ],
+        "llm_calls": 3,
+        "tokens": 0,
+        "write_trajectory": [
+          "notify_passenger"
+        ],
+        "elapsed_ms": 19,
+        "status": "COMPLETED",
+        "policy_refs": [
+          "POL-DELAY-2026-03"
+        ],
+        "evidence_refs": [
+          "E-1001",
+          "E-1007",
+          "E-2003"
+        ],
+        "entitlements": [
+          {
+            "entitlement": "REBOOK_NO_FEE",
+            "rule_id": "R1",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "ELIGIBLE"
+          }
+        ],
+        "full_tool_trajectory": [
+          "get_trip_context",
+          "get_operational_events",
+          "get_policy_rules",
+          "get_eligible_options",
+          "notify_passenger",
+          "get_trip_context",
+          "get_operational_events",
+          "get_policy_rules",
+          "get_eligible_options",
+          "create_rebooking_request",
+          "create_human_case"
+        ]
+      },
+      "response": {
+        "what_happened": [
+          "Verified departure delay: 200 minutes.",
+          "Gate change: 24."
+        ],
+        "entitlements": [
+          {
+            "entitlement": "REBOOK_NO_FEE",
+            "rule_id": "R1",
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "ELIGIBLE"
+          }
+        ],
+        "options": [
+          {
+            "option_id": "O1",
+            "flight_number": "NB2412",
+            "origin": "LIM",
+            "destination": "MEX",
+            "date": "2026-09-16",
+            "departure": "08:15",
+            "fare_difference": 0,
+            "policy_ref": "POL-DELAY-2026-03",
+            "status": "CONFIRMABLE"
+          }
+        ],
+        "next_step": "CONFIRM_OPTION",
+        "policy_refs": [
+          "POL-DELAY-2026-03"
+        ],
+        "human_required": false,
+        "reply": "El retraso verificado es de 200 minutos. La conexión está en riesgo según la llegada estimada; todavía no está confirmada su pérdida. La alternativa NB2412 del 2026-09-16 a las 08:15 tiene cupos para el grupo. Es elegible para cambio sin cargo; confirma esta opción antes de solicitarla. No se ha cambiado tu reserva.",
+        "connection_status": "AT_RISK",
+        "evidence_refs": [
+          "E-1001",
+          "E-1007",
+          "E-2003"
+        ],
+        "human_case": null,
+        "notification": {
+          "status": "QUEUED",
+          "notification_id": "NT-9912",
+          "channel": "PUSH"
+        },
+        "agent_status": "COMPLETED",
+        "trace_id": "d1d6feea69134739ad7f4431bd215d4d"
+      },
+      "write_result": {
+        "status": "INDETERMINATE",
+        "reply": "El resultado de la solicitud es desconocido. No confirmamos un cambio ni repetimos la reserva.",
+        "human_case": {
+          "status": "OPEN",
+          "case_id": "HC-4471",
+          "queue": "DISRUPTION_L2",
+          "sla_minutes": 45
+        }
+      }
+    }
+  ],
+  "passed": 4,
+  "total": 4
+}

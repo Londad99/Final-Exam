@@ -160,3 +160,48 @@ def test_api_contract(setup, monkeypatch):
         assert response.status_code == 200
         assert response.json()["agent_status"] == "COMPLETED"
         assert client.post("/v1/disruptions/confirm", json={"confirmation_token": "invalid", "option_id": "O1", "confirmed": True}, headers={"x-demo-user": "demo-maria"}).status_code == 409
+
+
+async def test_expired_options_are_not_presented(setup):
+    service, systems, _, _ = setup
+    systems.ttl_seconds = 0
+    result, trace = await service.assess("ABC123", MESSAGE, "demo-maria")
+    assert result.agent_status == "COMPLETED", trace
+    assert result.options == [] and result.human_required
+
+
+async def test_lower_priority_delay_does_not_override_ops(setup, monkeypatch):
+    service, systems, clock, _ = setup
+    original = systems.get_operational_events
+    def with_lower_priority(segment_ids):
+        document = original(segment_ids)
+        document["events"].append({"event_id": "E-LOW", "segment_id": "S1", "type": "DELAY",
+                                   "delay_minutes": 300, "source": "AIRPORT_FEED", "recorded_at": clock.now().isoformat()})
+        return document
+    monkeypatch.setattr(systems, "get_operational_events", with_lower_priority)
+    result, _ = await service.assess("ABC123", MESSAGE, "demo-maria")
+    assert "160" in result.reply and "300" not in result.reply
+    assert not any(e.status == "ELIGIBLE" for e in result.entitlements)
+
+
+async def test_unknown_policy_rule_fails_closed(setup, monkeypatch):
+    service, systems, _, model = setup
+    model.compensation = False
+    original = systems.get_policy_rules
+    def with_unknown_rule(scenario):
+        document = original(scenario)
+        document["rules"].append({"rule_id": "R6", "condition": "missing_fact == true",
+                                   "entitlement": "REBOOK_NO_FEE", "requires_human_approval": False})
+        return document
+    monkeypatch.setattr(systems, "get_policy_rules", with_unknown_rule)
+    result, _ = await service.assess("ABC456", "Find alternatives", "demo-adults")
+    assert result.human_required and result.confirmation_token is None
+
+
+async def test_same_itinerary_new_offer_cannot_duplicate_write(setup):
+    service, systems, _, _ = setup
+    first = await adult_offer(setup)
+    service.engine.confirm("demo-adults", first.confirmation_token, "O1", True)
+    second = await adult_offer(setup)
+    service.engine.confirm("demo-adults", second.confirmation_token, "O1", True)
+    assert systems.calls.count("create_rebooking_request") == 1

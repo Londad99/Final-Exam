@@ -78,13 +78,20 @@ class Engine:
         # Missing, future-dated or unrecognized sources cannot imply an on-time flight.
         complete = all(any(e.segment_id == s.segment_id and e.type in {"DELAY", "STATUS"} for e in trusted) for s in trip.segments)
         known = complete and not recon.unresolved
-        delays = [e.delay_minutes for e in trusted if e.type == "DELAY" and e.delay_minutes is not None]
+        delays = [state.delay_minutes for state in recon.segments.values()]
+        for segment in trip.segments:
+            state = recon.segments.get(segment.segment_id)
+            if state and state.new_departure:
+                actual_shift = (datetime.combine(segment.date, state.new_departure) -
+                                datetime.combine(segment.date, segment.scheduled_departure)).total_seconds()/60
+                if actual_shift != state.delay_minutes:
+                    known = False
         delay = max(delays, default=0) if known else None
         risk = False
         if known and len(trip.segments) > 1:
             first, second = trip.segments[:2]
-            arrival = datetime.combine(first.date, first.scheduled_arrival) + timedelta(minutes=delay or 0)
-            departure = datetime.combine(second.date, second.scheduled_departure)
+            arrival = datetime.combine(first.date, first.scheduled_arrival) + timedelta(minutes=recon.segments[first.segment_id].delay_minutes)
+            departure = datetime.combine(second.date, second.scheduled_departure) + timedelta(minutes=recon.segments[second.segment_id].delay_minutes)
             risk = (departure-arrival).total_seconds() < 45*60
         facts = {
             "delay_minutes": delay, "missed_connection": None,
@@ -99,7 +106,8 @@ class Engine:
             status="PENDING_HUMAN_REVIEW" if e.requires_human_approval else "ELIGIBLE",
         ) for e in outcome.triggered]
         no_fee = any(e.entitlement == "REBOOK_NO_FEE" and e.status == "ELIGIBLE" for e in entitlements)
-        human = (not known or not valid_policy or any(e.status == "PENDING_HUMAN_REVIEW" for e in entitlements)
+        material_unknown = any(rule != "R3" or (risk and not no_fee) for rule in outcome.unevaluable)
+        human = (not known or not valid_policy or material_unknown or any(e.status == "PENDING_HUMAN_REVIEW" for e in entitlements)
                  or ((risk or intent.rebooking_requested) and not no_fee))
         refs = [policy.version] if valid_policy else []
         candidates = []
@@ -114,6 +122,8 @@ class Engine:
                     continue
                 candidate_time = datetime.combine(item.date, item.departure)
                 if candidate_time <= datetime.combine(last.date, last.scheduled_departure):
+                    continue
+                if len(trip.segments) > 1 and candidate_time < arrival + timedelta(minutes=45):
                     continue
                 candidates.append(Option(
                     option_id=item.option_id, flight_number=item.flight_number, origin=item.origin,
@@ -237,7 +247,7 @@ class ReadContext:
         self.events = EventsDocument.model_validate(self.engine.systems.get_operational_events([s.segment_id for s in self.trip.segments]))
         r = reconcile(self.events.events, self.events.meta.sources_degraded, self.engine.clock.now(), PRIORITY, timedelta(minutes=30))
         return {"event_count": len(self.events.events), "requires_deterministic_assessment": True,
-                "unresolved_conflict": r.unresolved, "sources_degraded": self.events.meta.sources_degraded}
+                "unresolved_conflict": r.unresolved, "sources_degraded": [s for s in self.events.meta.sources_degraded if s in PRIORITY]}
 
     def get_policy_rules(self) -> dict:
         """Read the current delay policy. Code evaluates all eligibility and approval rules."""

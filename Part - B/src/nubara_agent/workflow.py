@@ -67,6 +67,7 @@ class AgentService:
 
     async def assess(self, booking: str, message: str, owner: str) -> tuple[Assessment, dict]:
         self.authorize(owner, booking)
+        calls_start = len(self.engine.systems.calls)
         context = ReadContext(self.engine, booking, owner)
         sanitized = sanitize_message(message, context.trip)
         trace_id = uuid.uuid4().hex
@@ -127,7 +128,7 @@ class AgentService:
             )
         result.trace_id = trace_id
         trace.update({"tool_trajectory": context.trajectory,
-                      "write_trajectory": [n for n in self.engine.systems.calls if n.startswith(("create_", "notify_"))],
+                      "write_trajectory": [n for n in self.engine.systems.calls[calls_start:] if n.startswith(("create_", "notify_"))],
                       "elapsed_ms": round((time.monotonic()-start)*1000), "status": result.agent_status,
                       "policy_refs": result.policy_refs, "evidence_refs": result.evidence_refs,
                       "entitlements": [e.model_dump() for e in result.entitlements]})
