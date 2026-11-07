@@ -1,16 +1,97 @@
 {
-  "trace_id": "37c2e774dcfc4742be13f60ff59fa9aa",
+  "trace_id": "d1dd4b90cc0344c68dfdfc399b72260e",
   "model_kind": "real",
-  "events": [],
-  "tool_trajectory": [],
-  "llm_calls": 1,
-  "tokens": 0,
-  "error_type": "ServerError",
-  "provider_status_code": 503,
-  "write_trajectory": [],
-  "elapsed_ms": 6951,
-  "status": "UNAVAILABLE",
-  "policy_refs": [],
-  "evidence_refs": [],
-  "entitlements": []
+  "events": [
+    {
+      "author": "read_agent",
+      "function_calls": [
+        "get_trip_context",
+        "get_operational_events",
+        "get_policy_rules",
+        "get_eligible_options"
+      ]
+    },
+    {
+      "author": "read_agent",
+      "function_calls": []
+    },
+    {
+      "author": "read_agent",
+      "function_calls": []
+    },
+    {
+      "author": "decision_gate",
+      "function_calls": []
+    }
+  ],
+  "tool_trajectory": [
+    "get_trip_context",
+    "get_operational_events",
+    "get_policy_rules",
+    "get_eligible_options"
+  ],
+  "llm_calls": 2,
+  "tokens": 1189,
+  "provider_attempts": [
+    {
+      "model": "gemini-3.8-flash",
+      "attempt": 1,
+      "status": "failed",
+      "error_type": "TimeoutError",
+      "wait_seconds": 2.7
+    },
+    {
+      "model": "gemini-3.8-flash",
+      "attempt": 2,
+      "status": "failed",
+      "error_type": "ServerError",
+      "provider_status_code": 503,
+      "wait_seconds": 4.44
+    },
+    {
+      "model": "gemini-3.8-flash",
+      "attempt": 3,
+      "status": "failed",
+      "error_type": "ServerError",
+      "provider_status_code": 503
+    },
+    {
+      "model": "gemini-3.1-flash-lite",
+      "attempt": 1,
+      "status": "completed"
+    },
+    {
+      "model": "gemini-3.1-flash-lite",
+      "attempt": 1,
+      "status": "completed"
+    }
+  ],
+  "write_trajectory": [
+    "create_human_case",
+    "notify_passenger"
+  ],
+  "elapsed_ms": 53496,
+  "status": "COMPLETED",
+  "policy_refs": [
+    "POL-DELAY-2026-03"
+  ],
+  "evidence_refs": [
+    "E-1001",
+    "E-1007",
+    "E-2003"
+  ],
+  "entitlements": [
+    {
+      "entitlement": "CASH_COMPENSATION",
+      "rule_id": "R4",
+      "policy_ref": "POL-DELAY-2026-03",
+      "status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "entitlement": "PRIORITY_HANDLING",
+      "rule_id": "R5",
+      "policy_ref": "POL-DELAY-2026-03",
+      "status": "PENDING_HUMAN_REVIEW"
+    }
+  ]
 }

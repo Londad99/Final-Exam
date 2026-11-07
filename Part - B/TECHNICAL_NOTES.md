@@ -1,5 +1,7 @@
 # Technical notes
 
+Update: 26 local tests pass and the latest real target conversation completed using Gemini 3.1 Flash-Lite after timeout/503 on Gemini 3.8 Flash. Historical failed live evaluation results below predate this change. See RUNBOOK section 10.
+
 Historical validation and architecture. For current startup instructions, see [RUNBOOK](RUNBOOK.md).
 
 ## Architecture and least privilege
@@ -43,7 +45,7 @@ Every entitlement must match the exact evaluated rule, policy version and approv
 4. The itinerary sample supports conservative estimates, not authoritative arrival/MCT data. The 30/45/30-minute design thresholds need operations validation. Live cancellation, multi-airport and timezone-complete handling remain outside scope.
 5. Known booking names and identifier patterns are redacted; arbitrary PII inside free text is not guaranteed to be detected. SQLite access relies on local OS permissions; retention cleanup, encryption and production identity must be added before real passengers.
 6. ADK 2.14.0 still supports `SequentialAgent` but marks it deprecated in favor of its newer Workflow API. The pinned version preserves this implementation; migration needs a separate reviewed change. TestClient also emits a dependency deprecation warning. Neither warning is suppressed as a claimed fix.
-7. The model is limited to four calls and 90 seconds; a valid but longer trajectory fails safely. Real latency/token measurements are unavailable while the provider fails. No RAG, deployment or production retry queue was added. A local frontend is now served by FastAPI.
+7. The model is limited to four logical calls and 180 seconds; a valid but longer trajectory fails safely. Real latency/token measurements are unavailable while the provider fails. No RAG, deployment or production retry queue was added. A local frontend is now served by FastAPI.
 
 ## References
 

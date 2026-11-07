@@ -1,23 +1,59 @@
 {
   "what_happened": [
-    "An automated assessment could not be completed."
+    "Verified departure delay: 160 minutes.",
+    "Gate change: 24."
   ],
-  "entitlements": [],
-  "options": [],
-  "next_step": "RETRY_OR_CONTACT_SUPPORT",
-  "policy_refs": [],
+  "entitlements": [
+    {
+      "entitlement": "CASH_COMPENSATION",
+      "rule_id": "R4",
+      "policy_ref": "POL-DELAY-2026-03",
+      "status": "PENDING_HUMAN_REVIEW"
+    },
+    {
+      "entitlement": "PRIORITY_HANDLING",
+      "rule_id": "R5",
+      "policy_ref": "POL-DELAY-2026-03",
+      "status": "PENDING_HUMAN_REVIEW"
+    }
+  ],
+  "options": [
+    {
+      "option_id": "O1",
+      "flight_number": "NB2412",
+      "origin": "LIM",
+      "destination": "MEX",
+      "date": "2026-09-16",
+      "departure": "08:15",
+      "fare_difference": 0,
+      "policy_ref": "POL-DELAY-2026-03",
+      "status": "CANDIDATE"
+    }
+  ],
+  "next_step": "HUMAN_REVIEW",
+  "policy_refs": [
+    "POL-DELAY-2026-03"
+  ],
   "human_required": true,
-  "reply": "No pude completar la evaluación automática. No se ha cambiado tu reserva. Abrí un caso para revisión humana.",
-  "connection_status": "UNKNOWN",
-  "evidence_refs": [],
+  "reply": "El retraso verificado es de 160 minutos. La conexión está en riesgo según la llegada estimada; todavía no está confirmada su pérdida. La alternativa NB2412 del 2026-09-16 a las 08:15 tiene cupos para el grupo. Es una candidata; sus condiciones y costos requieren revisión. La compensación requiere revisión humana; no hay un monto aprobado. Abrí un caso para revisión humana. No se ha cambiado tu reserva.",
+  "connection_status": "AT_RISK",
+  "evidence_refs": [
+    "E-1001",
+    "E-1007",
+    "E-2003"
+  ],
   "human_case": {
     "status": "OPEN",
     "case_id": "HC-4471",
     "queue": "DISRUPTION_L2",
     "sla_minutes": 45
   },
-  "notification": null,
+  "notification": {
+    "status": "QUEUED",
+    "notification_id": "NT-9912",
+    "channel": "PUSH"
+  },
   "confirmation_token": null,
-  "agent_status": "UNAVAILABLE",
-  "trace_id": "37c2e774dcfc4742be13f60ff59fa9aa"
+  "agent_status": "COMPLETED",
+  "trace_id": "d1dd4b90cc0344c68dfdfc399b72260e"
 }

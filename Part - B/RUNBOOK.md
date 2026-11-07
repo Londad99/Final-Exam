@@ -183,3 +183,7 @@ Cada llamada del agente hace hasta 3 intentos por modelo. Ante 429, 500, 502, 50
 Esto reduce fallos transitorios, pero no garantiza evitar 503 ni aumenta la cuota del proyecto. Un 429 puede representar un límite temporal o cuota agotada; si todos los modelos comparten la cuota o están indisponibles, se devuelve `UNAVAILABLE` y revisión humana. No se cambian claves, cuentas ni facturación. Los reintentos solo envían solicitudes al modelo: no repiten el workflow, confirmaciones ni escrituras de reservas.
 
 Para probar realmente: ejecuta `scripts/demo.py` o `scripts/evaluate.py --live` con los comandos anteriores. Las trazas guardan `provider_attempts` con modelo, intento, espera y código de error, sin claves ni mensajes. Las APIs de aerolínea siguen simuladas: para conectarlas hacen falta endpoints y credenciales reales.
+
+### Resultado comprobado con API real
+
+La prueba individual posterior a este cambio terminó en `COMPLETED` (~53,5 segundos): `gemini-3.8-flash` devolvió un timeout y dos 503; `gemini-3.1-flash-lite` completó las dos llamadas lógicas. Evidencia: `evidence/latest-real-trace.json` y `evidence/latest-real-response.json`. Pasaron 26 pruebas locales. Esto verifica una conversación real; no equivale a haber aprobado de nuevo los cuatro escenarios con `--live`.

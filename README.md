@@ -1,6 +1,6 @@
 # Nubara Disruption Companion — Engineering README
 
-**Purpose and scope.** Reduce uncertainty and avoidable contacts through verified disruption explanations and controlled next steps. The backend in [Part - B](Part%20-%20B/RUNBOOK.md) implements the student-approved Google ADK design over airline mocks; with a local Spanish frontend served alongside the API; no deployment. See the RUNBOOK for startup, demo identities and browser tests. The earlier submission supplies reusable contracts and deterministic logic. **Validation: 17 local tests and 4/4 scripted ADK evaluations pass; real Gemini evaluations currently fail with provider HTTP 503. A successful real-model run is still required.**
+**Purpose and scope.** Reduce uncertainty and avoidable contacts through verified disruption explanations and controlled next steps. The backend in [Part - B](Part%20-%20B/RUNBOOK.md) implements the student-approved Google ADK design over airline mocks; with a local Spanish frontend served alongside the API; no deployment. See the RUNBOOK for startup, demo identities and browser tests. The earlier submission supplies reusable contracts and deterministic logic. **Validation: 26 local tests pass. The previous scripted evaluation passed 4/4. A real target conversation now completes after retrying Gemini 3.8 Flash (timeout/503) and switching to Gemini 3.1 Flash-Lite; see latest-real-trace.json. The four-case live evaluation has not been rerun.**
 
 ## 1. Autonomy boundary
 
@@ -35,7 +35,7 @@
 
 Sequential orchestration connects reader to gate; no model-directed delegation. `read_agent` reaches only trip, events, policy and options wrappers; identifiers remain backend-bound. `decision_gate` alone reaches case/notification writes. The confirmation service alone reaches rebooking. Operator decisions remain outside this slice; no endpoint can impersonate approval.
 
-The target retrieves minimized trip data, then operational/policy/option evidence, then interpreted intent. Typical budget: three model calls, hard cap four, timeout 90 seconds. Gemini is configurable in `.env`; the default is `gemini-3.8-flash`, listed with a [free tier](https://ai.google.dev/gemini-api/docs/pricing). Three calls are demonstrated with the test double, not measured successfully with Gemini. Provider failure returns an explicit unavailable status and referral.
+The target retrieves minimized trip data, then operational/policy/option evidence, then interpreted intent. Typical budget: three model calls, hard cap four, timeout 180 seconds. Gemini is configurable in `.env`; the default is `gemini-3.8-flash`, listed with a [free tier](https://ai.google.dev/gemini-api/docs/pricing). The scripted flow uses three calls; the latest successful real Gemini flow used two logical calls with bounded retries and model fallback. Provider failure returns an explicit unavailable status and referral.
 
 ## 3. Context and personal data
 
