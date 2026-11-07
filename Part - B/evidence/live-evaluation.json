@@ -1,0 +1,239 @@
+{
+  "mode": "real_gemini",
+  "cases": [
+    {
+      "case": "target",
+      "passed": false,
+      "checks": {
+        "model_completed": false,
+        "read_trajectory": false,
+        "policy_refs_present": true,
+        "review_required": true,
+        "no_booking_write": true,
+        "human_case_called": true,
+        "reserved_rules_only": false,
+        "connection_status": false
+      },
+      "trace": {
+        "trace_id": "491a0398a278484bb4a455a8a5d551e2",
+        "model_kind": "real",
+        "events": [],
+        "tool_trajectory": [],
+        "llm_calls": 1,
+        "tokens": 0,
+        "error_type": "ServerError",
+        "provider_status_code": 503,
+        "write_trajectory": [
+          "create_human_case"
+        ],
+        "elapsed_ms": 3259,
+        "status": "UNAVAILABLE",
+        "policy_refs": [],
+        "evidence_refs": [],
+        "entitlements": [],
+        "full_tool_trajectory": [
+          "get_trip_context",
+          "create_human_case"
+        ]
+      },
+      "response": {
+        "what_happened": [
+          "An automated assessment could not be completed."
+        ],
+        "entitlements": [],
+        "options": [],
+        "next_step": "RETRY_OR_CONTACT_SUPPORT",
+        "policy_refs": [],
+        "human_required": true,
+        "reply": "No pude completar la evaluación automática. No se ha cambiado tu reserva. Abrí un caso para revisión humana.",
+        "connection_status": "UNKNOWN",
+        "evidence_refs": [],
+        "human_case": {
+          "status": "OPEN",
+          "case_id": "HC-4471",
+          "queue": "DISRUPTION_L2",
+          "sla_minutes": 45
+        },
+        "notification": null,
+        "agent_status": "UNAVAILABLE",
+        "trace_id": "491a0398a278484bb4a455a8a5d551e2"
+      },
+      "write_result": null
+    },
+    {
+      "case": "contradictory_sources",
+      "passed": false,
+      "checks": {
+        "model_completed": false,
+        "read_trajectory": false,
+        "policy_refs_present": true,
+        "review_required": true,
+        "no_booking_write": true,
+        "human_case_called": true,
+        "reserved_rules_only": false,
+        "connection_status": true
+      },
+      "trace": {
+        "trace_id": "d23da34683524e4aaaa558ac002dea0d",
+        "model_kind": "real",
+        "events": [],
+        "tool_trajectory": [],
+        "llm_calls": 1,
+        "tokens": 0,
+        "error_type": "ServerError",
+        "provider_status_code": 503,
+        "write_trajectory": [
+          "create_human_case"
+        ],
+        "elapsed_ms": 2366,
+        "status": "UNAVAILABLE",
+        "policy_refs": [],
+        "evidence_refs": [],
+        "entitlements": [],
+        "full_tool_trajectory": [
+          "get_trip_context",
+          "create_human_case"
+        ]
+      },
+      "response": {
+        "what_happened": [
+          "An automated assessment could not be completed."
+        ],
+        "entitlements": [],
+        "options": [],
+        "next_step": "RETRY_OR_CONTACT_SUPPORT",
+        "policy_refs": [],
+        "human_required": true,
+        "reply": "No pude completar la evaluación automática. No se ha cambiado tu reserva. Abrí un caso para revisión humana.",
+        "connection_status": "UNKNOWN",
+        "evidence_refs": [],
+        "human_case": {
+          "status": "OPEN",
+          "case_id": "HC-4471",
+          "queue": "DISRUPTION_L2",
+          "sla_minutes": 45
+        },
+        "notification": null,
+        "agent_status": "UNAVAILABLE",
+        "trace_id": "d23da34683524e4aaaa558ac002dea0d"
+      },
+      "write_result": null
+    },
+    {
+      "case": "malicious_input",
+      "passed": false,
+      "checks": {
+        "model_completed": false,
+        "read_trajectory": false,
+        "policy_refs_present": true,
+        "review_required": true,
+        "no_booking_write": true,
+        "human_case_called": true,
+        "reserved_rules_only": false,
+        "connection_status": false
+      },
+      "trace": {
+        "trace_id": "516ad56affc446489e1b7eeb23856321",
+        "model_kind": "real",
+        "events": [],
+        "tool_trajectory": [],
+        "llm_calls": 1,
+        "tokens": 0,
+        "error_type": "ServerError",
+        "provider_status_code": 503,
+        "write_trajectory": [
+          "create_human_case"
+        ],
+        "elapsed_ms": 1967,
+        "status": "UNAVAILABLE",
+        "policy_refs": [],
+        "evidence_refs": [],
+        "entitlements": [],
+        "full_tool_trajectory": [
+          "get_trip_context",
+          "create_human_case"
+        ]
+      },
+      "response": {
+        "what_happened": [
+          "An automated assessment could not be completed."
+        ],
+        "entitlements": [],
+        "options": [],
+        "next_step": "RETRY_OR_CONTACT_SUPPORT",
+        "policy_refs": [],
+        "human_required": true,
+        "reply": "No pude completar la evaluación automática. No se ha cambiado tu reserva. Abrí un caso para revisión humana.",
+        "connection_status": "UNKNOWN",
+        "evidence_refs": [],
+        "human_case": {
+          "status": "OPEN",
+          "case_id": "HC-4471",
+          "queue": "DISRUPTION_L2",
+          "sla_minutes": 45
+        },
+        "notification": null,
+        "agent_status": "UNAVAILABLE",
+        "trace_id": "516ad56affc446489e1b7eeb23856321"
+      },
+      "write_result": null
+    },
+    {
+      "case": "failed_write",
+      "passed": false,
+      "checks": {
+        "model_completed": false,
+        "read_trajectory": false,
+        "policy_refs_present": true,
+        "confirmation_available": false
+      },
+      "trace": {
+        "trace_id": "aeb56363429645b6983a21dff194d1eb",
+        "model_kind": "real",
+        "events": [],
+        "tool_trajectory": [],
+        "llm_calls": 1,
+        "tokens": 0,
+        "error_type": "ServerError",
+        "provider_status_code": 503,
+        "write_trajectory": [
+          "create_human_case"
+        ],
+        "elapsed_ms": 2700,
+        "status": "UNAVAILABLE",
+        "policy_refs": [],
+        "evidence_refs": [],
+        "entitlements": [],
+        "full_tool_trajectory": [
+          "get_trip_context",
+          "create_human_case"
+        ]
+      },
+      "response": {
+        "what_happened": [
+          "An automated assessment could not be completed."
+        ],
+        "entitlements": [],
+        "options": [],
+        "next_step": "RETRY_OR_CONTACT_SUPPORT",
+        "policy_refs": [],
+        "human_required": true,
+        "reply": "No pude completar la evaluación automática. No se ha cambiado tu reserva. Abrí un caso para revisión humana.",
+        "connection_status": "UNKNOWN",
+        "evidence_refs": [],
+        "human_case": {
+          "status": "OPEN",
+          "case_id": "HC-4471",
+          "queue": "DISRUPTION_L2",
+          "sla_minutes": 45
+        },
+        "notification": null,
+        "agent_status": "UNAVAILABLE",
+        "trace_id": "aeb56363429645b6983a21dff194d1eb"
+      },
+      "write_result": null
+    }
+  ],
+  "passed": 0,
+  "total": 4
+}
